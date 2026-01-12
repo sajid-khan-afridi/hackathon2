@@ -462,7 +462,7 @@ hackathon-todo/
 |------------|---------------------|
 | As a user, I can sign up for an account | Email/password registration, unique email validation, redirect to tasks page |
 | As a user, I can sign in to my account | Email/password authentication, JWT token issued, redirect to tasks page |
-| As a user, I can create a new task | Title required (1-200 chars), description optional (max 1000 chars), task associated with logged-in user |
+| As a user, I can create a new task | Title required (1-200 chars), description optional (max 2000 chars), task associated with logged-in user |
 | As a user, I can view all my tasks | Only show tasks for current user, display title/status/created date, support status filtering |
 | As a user, I can update a task | Modify title and/or description, task ownership verified |
 | As a user, I can delete a task | Remove task by ID, task ownership verified, confirmation response |
@@ -534,7 +534,7 @@ Authorization: Bearer <token>
 | id | integer | PRIMARY KEY, AUTO INCREMENT |
 | user_id | string | FOREIGN KEY → users.id, NOT NULL |
 | title | string | NOT NULL, max 200 chars |
-| description | text | NULLABLE, max 1000 chars |
+| description | text | NULLABLE, max 2000 chars |
 | completed | boolean | DEFAULT false |
 | created_at | timestamp | DEFAULT now() |
 | updated_at | timestamp | DEFAULT now(), ON UPDATE now() |
@@ -579,7 +579,7 @@ Authorization: Bearer <token>
 | Field | Validation | Error |
 |-------|------------|-------|
 | title | Required, 1-200 chars, not empty/whitespace | 400 Bad Request |
-| description | Optional, max 1000 chars | 400 Bad Request |
+| description | Optional, max 2000 chars | 400 Bad Request |
 | task_id | Positive integer | 400 Bad Request |
 | user_id | Non-empty string (from JWT) | 401 Unauthorized |
 | status filter | Enum: all, pending, completed | 400 Bad Request |
@@ -1022,7 +1022,7 @@ async def create_task(
     Args:
         user_id: The ID of the user creating the task.
         title: The title of the task (1-200 characters).
-        description: Optional task description (max 1000 chars).
+        description: Optional task description (max 2000 chars).
 
     Returns:
         The created Task object.
@@ -1224,7 +1224,7 @@ async def get_task(task_id: int, user_id: str = Depends(get_current_user)) -> Ta
 | Field | Validation | Error |
 |-------|------------|-------|
 | title | Required, 1-200 chars | 400 Bad Request |
-| description | Optional, max 1000 chars | 400 Bad Request |
+| description | Optional, max 2000 chars | 400 Bad Request |
 | task_id | Positive integer | 400 Bad Request |
 | user_id | Non-empty string (from JWT) | 401 Unauthorized |
 | message | Non-empty string | 400 Bad Request |

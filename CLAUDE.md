@@ -130,6 +130,43 @@ You are not expected to solve every problem autonomously. You MUST invoke the us
 3.  **Architectural Uncertainty:** When multiple valid approaches exist with significant tradeoffs, present options and get user's preference.
 4.  **Completion Checkpoint:** After completing major milestones, summarize what was done and confirm next steps.
 
+### 6. Agent Skills Mandate for Implementation
+
+When `/sp.implement` is invoked, you **MUST** identify and apply relevant Agent Skills **BEFORE** making any code changes. This is a blocking requirement.
+
+**Mandatory Pre-Implementation Steps:**
+
+1. **Skill Discovery:** Review available skills from TWO sources:
+   - The Skill tool's available_skills list (plugin and managed skills)
+   - Local project skills in `.claude/skills/*` (read skill files directly)
+2. **Relevance Analysis:** Analyze the current feature/phase requirements against available skills:
+   - What technology stack is being used? (e.g., frontend → `frontend-design`, docs → `docx`/`pdf`)
+   - What file types will be created? (e.g., `.xlsx` → `xlsx`, `.pptx` → `pptx`)
+   - What capabilities are needed? (e.g., web testing → `webapp-testing`, MCP server → `mcp-builder`)
+3. **Skill Application:** For each relevant skill identified:
+   - For plugin/managed skills: Invoke the Skill tool with the skill name
+   - For local skills (`.claude/skills/*`): Read the skill file and apply its instructions
+   - Apply the skill's patterns, best practices, and guidelines to the implementation
+4. **Document Skills Used:** In the implementation output, note which skills were applied and why.
+
+**Skill Matching Examples:**
+
+| Feature/Phase Context | Relevant Skills |
+|----------------------|-----------------|
+| Web UI components | `frontend-design`, `webapp-testing` |
+| API documentation | `doc-coauthoring`, `pdf` or `docx` |
+| Spreadsheet generation | `xlsx` |
+| Presentation creation | `pptx` |
+| MCP server development | `mcp-builder` |
+| Internal communications | `internal-comms` |
+| Algorithmic visualizations | `algorithmic-art` |
+
+**Failure to Apply Skills:**
+
+If no relevant skills are identified for the current implementation context, explicitly state: "No applicable Agent Skills identified for this implementation phase." and proceed with standard implementation practices.
+
+**Rationale:** Agent Skills contain specialized domain knowledge, best practices, and tooling that improve code quality and reduce errors. Skipping skill application may result in suboptimal implementations.
+
 ## Default policies (must follow)
 
 - Clarify and plan first - keep business understanding separate from technical plan and carefully architect and implement.

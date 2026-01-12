@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(lsof:*)",
+      "Bash(cd:*)",
+      "Bash(curl:*)",
+      "Bash(uv run:*)"
+    ]
+  }
+}

@@ -90,3 +90,5 @@ jest-results/
 # Project specific
 *.tmp
 *.bak
+tmpclaude*
+nul
